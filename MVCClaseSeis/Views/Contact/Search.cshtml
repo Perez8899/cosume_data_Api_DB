@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Search a Contact by Email";
+}
+
+<h2>Search a Contact by Email</h2>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form method="get" action="@Url.Action("SearchByEmail", "Contact")">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 mb-3">Search</button>
+</form>
+
+<div>
+    <p>
+        <a href="@Url.Action("Index", "Contact")" class="btn btn-primary">Back to List</a>
+    </p>
+</div>

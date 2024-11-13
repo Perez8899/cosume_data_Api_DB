@@ -1,0 +1,14 @@
+﻿@model MVCClaseSeis.Models.Dto.ContactDTO
+
+<h2>Details of Contact</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.First_Name @Model.Last_Name</h4>
+        <p class="card-text"><strong>Email:</strong> @Model.Email</p>
+        <p class="card-text"><strong>Phone:</strong> @Model.Phone</p>
+        <p class="card-text"><strong>DateAdded:</strong> @Model.DateAdded.ToString("dd/MM/yyyy")</p>
+    </div>
+</div>
+
+<a href="@Url.Action("Index", "Contact")" class="btn btn-secondary mt-3">Back to List</a>
