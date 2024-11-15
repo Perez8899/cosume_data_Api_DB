@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using MVCClaseSeis.Models.Dto;
-using System;
+
 
 namespace MVCClaseSeis.Models
 {
@@ -25,7 +25,7 @@ namespace MVCClaseSeis.Models
         // Sets the Authorization header with a Bearer token for secure requests
         private async Task SetAuthorizationHeader()
         {
-            var token = await _authService.GetAuthTokenAsync(); // Retrieve token from AuthService
+            var token = await _authService.GetAuthTokenAsync();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
@@ -34,10 +34,10 @@ namespace MVCClaseSeis.Models
         {
             await SetAuthorizationHeader(); // Set authorization header
             var response = await _httpClient.GetAsync(_apiUrl); // Send GET request to the API
-            response.EnsureSuccessStatusCode(); // Ensure response was successful
+            response.EnsureSuccessStatusCode(); 
 
-            var responseData = await response.Content.ReadAsStringAsync(); // Read response content
-            return JsonConvert.DeserializeObject<List<ContactDTO>>(responseData); // Deserialize JSON into a list of ContactDTO
+            var responseData = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<ContactDTO>>(responseData); 
         }
 
         // Sends a new contact to the API to be created
@@ -72,7 +72,6 @@ namespace MVCClaseSeis.Models
             await SetAuthorizationHeader(); // Set authorization header
             var response = await _httpClient.GetAsync($"{_apiUrl}?email={email}"); // Send GET request with email parameter
 
-            // If the response is successful, deserialize and return the contact data
             if (response.IsSuccessStatusCode)
             {
                 var responseData = await response.Content.ReadAsStringAsync();

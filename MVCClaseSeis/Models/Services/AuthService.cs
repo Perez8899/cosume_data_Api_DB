@@ -23,17 +23,10 @@ namespace MVCClaseSeis.Models
         {
             // Encode the credentials in Base64 format
             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("app_asdrubalcc:KAecC1212"));
-
-            // Set the authorization header using Basic authentication with encoded credentials
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
-
-            // Send POST request to the auth URL to get the token
             var response = await _httpClient.PostAsync(_authUrl, null);
             response.EnsureSuccessStatusCode(); // Ensure the response was successful
-
-            // Read the response content as a JSON string
             var responseData = await response.Content.ReadAsStringAsync();
-
             // Deserialize the JSON response into a TokenResponse object
             var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseData);
 
