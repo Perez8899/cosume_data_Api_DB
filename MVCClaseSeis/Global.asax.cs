@@ -15,6 +15,7 @@ namespace MVCClaseSeis
 
             // Asegúrate de que esta línea esté presente para inicializar Unity
             UnityConfig.RegisterComponents();
+
         }
     }
 }
