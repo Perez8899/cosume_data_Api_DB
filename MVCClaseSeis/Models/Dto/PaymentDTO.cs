@@ -13,7 +13,9 @@ public class PaymentRequestDTO
 // PaymentResponseDTO.cs
 public class PaymentResponseDTO
 {
-    public bool Success { get; set; }
-    public string Message { get; set; } // Success or error message
-    public DateTime PaymentDate { get; set; } // Date of payment
+    public int Id { get; set; }
+    public int Contact_Id { get; set; }
+    public decimal Amount { get; set; }
+    public string Status { get; set; }
+    public DateTime Created_at { get; set; }
 }

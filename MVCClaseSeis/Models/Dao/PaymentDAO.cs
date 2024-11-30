@@ -1,6 +1,8 @@
 ﻿// PaymentDAO.cs
 using MVCClaseSeis.Models;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,8 +23,12 @@ public class PaymentDAO
             _authService = authService;
         }
 
-        // Sets the Authorization header with a Bearer token for secure requests
-        private async Task SetAuthorizationHeader()
+    public PaymentDAO()
+    {
+    }
+
+    // Sets the Authorization header with a Bearer token for secure requests
+    private async Task SetAuthorizationHeader()
         {
             var token = await _authService.GetAuthTokenAsync();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -60,5 +66,43 @@ public class PaymentDAO
             return await response.Content.ReadFromJsonAsync<IEnumerable<PaymentResponseDTO>>();
         }
         return null;
+    }
+
+    public List<PaymentResponseDTO> ReadPayments()
+    {
+        List<PaymentResponseDTO> cars = new List<PaymentResponseDTO>();
+        using (MySqlConnection cnx = Cnx.getCnx())
+        {
+            try
+            {
+                cnx.Open();
+                string query = "select * from payments";
+
+                MySqlCommand cmd = new MySqlCommand(query, cnx);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PaymentResponseDTO car = new PaymentResponseDTO
+                        {
+                            Id = reader.GetInt32("Id"),
+                            Contact_Id = reader.GetInt32("Contact_Id"),
+                            Amount = reader.GetDecimal("Amount"),
+                            Status = reader.GetString("Status"),
+                            Created_at = reader.GetDateTime("Created_at"),
+
+                        };
+                        cars.Add(car);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+        return cars;
     }
 }

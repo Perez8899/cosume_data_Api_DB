@@ -9,13 +9,16 @@ public class PaymentController : Controller
 {
     private readonly PaymentDAO _paymentDAO;
     private readonly ContactDAO _contactDAO;
+    private PaymentDAO paymentDAO = new PaymentDAO();
+
 
     public PaymentController(PaymentDAO paymentDAO, ContactDAO contactDAO)
     {
         _paymentDAO = paymentDAO;
         _contactDAO = contactDAO;
-
     }
+
+
 
     public ActionResult Create()
     {
@@ -61,5 +64,10 @@ public class PaymentController : Controller
         }
 
         return View(payment);
+    }
+
+    public ActionResult Report()
+    {
+        return View(paymentDAO.ReadPayments());
     }
 }

@@ -224,6 +224,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cnx.cs" />
     <Compile Include="Models\Dao\ContactDao.cs" />
     <Compile Include="Models\Dao\PaymentDAO.cs" />
     <Compile Include="Models\Dto\ContactDTO.cs" />
@@ -296,6 +297,7 @@
     <Content Include="Views\Contact\Search.cshtml" />
     <Content Include="Views\Contact\Details.cshtml" />
     <Content Include="Views\Payment\Create.cshtml" />
+    <Content Include="Views\Payment\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
