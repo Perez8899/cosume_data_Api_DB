@@ -18,7 +18,7 @@ public class PaymentResponseDTO
     public string Status { get; set; }
     public DateTime Created_at { get; set; }
 
-    // Campo adicional para el nombre del contacto obtenido de la API
+    // Additional field for contact name obtained from API
     public string ContactName { get; set; }
 }
 
