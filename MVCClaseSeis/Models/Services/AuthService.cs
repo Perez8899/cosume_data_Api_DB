@@ -22,8 +22,8 @@ namespace MVCClaseSeis.Models
         public async Task<string> GetAuthTokenAsync()
         {
             // Encode the credentials in Base64 format
-            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("app_asdrubalcc:KAecC1212"));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
+            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes("hyh:hyhector"));
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials); //tenia Basic
             var response = await _httpClient.PostAsync(_authUrl, null);
             response.EnsureSuccessStatusCode(); // Ensure the response was successful
             var responseData = await response.Content.ReadAsStringAsync();

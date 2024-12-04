@@ -1,5 +1,4 @@
-﻿// PaymentRequestDTO.cs
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 public class PaymentRequestDTO
@@ -14,8 +13,13 @@ public class PaymentRequestDTO
 public class PaymentResponseDTO
 {
     public int Id { get; set; }
-    public int Contact_Id { get; set; }
+    public int contact_id { get; set; }
     public decimal Amount { get; set; }
     public string Status { get; set; }
     public DateTime Created_at { get; set; }
+
+    // Campo adicional para el nombre del contacto obtenido de la API
+    public string ContactName { get; set; }
 }
+
+
