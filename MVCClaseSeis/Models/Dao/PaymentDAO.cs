@@ -56,16 +56,15 @@ public class PaymentDAO
             var responseData = await response.Content.ReadAsStringAsync();
             var paymentResponse = JsonConvert.DeserializeObject<PaymentResponseDTO>(responseData);
 
-            // Verificar que el contact_id no sea 0
+            // Verify that the contact_id is not 0
             if (paymentResponse.contact_id == 0)
             {
                 Console.WriteLine("Error: Contact ID is 0, payment will not be saved.");
                 return false; // Si el contact_id es 0, no guardar el pago
             }
-            // Aquí puedes ahora acceder al ContactID
-            // Ejemplo: paymentResponse.ContactID
 
-            // Guardar el pago en la base de datos (si es necesario)
+
+            // // Save the payment to the database
             await SavePaymentToDatabaseAsync(paymentResponse.contact_id, paymentResponse.Amount, paymentResponse.Status);
 
             return true;
@@ -118,20 +117,17 @@ public class PaymentDAO
         if (contact_id == 0)
         {
             Console.WriteLine("Error: Contact ID is 0, not saving payment.");
-            return false; // No proceder con la inserción si contact_id es 0
+            return false; // Do not proceed with insert if contact_id is 0
         }
         using (MySqlConnection cnx = Cnx.getCnx())
         {
             try
             {
-                //await connection.OpenAsync();
                 cnx.Open();
                 string query = @"
                 INSERT INTO payouts (contact_id, amount, status, created_at) 
                 VALUES (@contact_id, @Amount, @Status, @CreatedAt)";
 
-                //using (var command = new MySqlCommand(query, cnx))
-               // {
                     MySqlCommand command = new MySqlCommand(query, cnx);
                     command.Parameters.AddWithValue("@contact_id", contact_id);
                     command.Parameters.AddWithValue("@Amount", amount);
@@ -145,7 +141,7 @@ public class PaymentDAO
                 }
             catch (Exception ex)
             {
-                // Manejo de errores
+                // MError handling
                 Console.WriteLine($"Error saving payment to database: {ex.Message}");
                 return false;
             }

@@ -19,7 +19,7 @@ public class PaymentResponseDTO
     public DateTime Created_at { get; set; }
 
     // Additional field for contact name obtained from API
-    public string ContactName { get; set; }
+    public string first_name { get; set; }
 }
 
 

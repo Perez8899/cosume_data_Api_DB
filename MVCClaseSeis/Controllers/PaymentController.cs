@@ -36,43 +36,17 @@ namespace MVCClaseSeis
                     return View(payment);
                 }
 
-                // Verificar si el correo electrónico existe en el sistema
+                // Check if the email exists in the system
                 var contact = await _contactDAO.GetContactByEmailAsync(payment.Email);
 
                 if (contact == null)
                 {
-                    // Si el correo electrónico no existe, mostrar mensaje de error
+                    // If the email does not exist, show error message
                     TempData["ErrorMessage"] = "The email does not exist in the system.";
                     return View(payment);
                 }
 
-                // Si el correo existe, crear el pago
-                /* var paymentResponse = await _paymentDAO.CreatePaymentAsync(payment);
-                 if (paymentResponse)
-                 {
-                     // Guardar el pago en la base de datos
-                     bool isSaved = await _paymentDAO.SavePaymentToDatabaseAsync(
-                         contact.ContactID,
-                         payment.Amount,
-                         "Pending" // Estado inicial
-                     );
-
-                     if (isSaved)
-                     {
-                         TempData["SuccessMessage"] = "Payment successfully created and saved to the database!";
-                         return RedirectToAction("Create");
-                     }
-                     else
-                     {
-                         ViewBag.Error = "The payment was created in the API but could not be saved in the database.";
-                     }
-                 }
-                 else
-                 {
-                     ViewBag.Error = "The system could not create the payment.";
-                 }
-             } */
-                // Si el correo existe, crear el pago
+                // If the email exists, create the payment
                 var paymentResponse = await _paymentDAO.CreatePaymentAsync(payment);
                 if (paymentResponse)
                 {
@@ -95,15 +69,3 @@ namespace MVCClaseSeis
         }
     }
 }
-/*
- // Si el correo existe, crear el pago
-        var paymentResponse = await _paymentDAO.CreatePaymentAsync(payment);
-        if (paymentResponse)
-        {
-            TempData["SuccessMessage"] = "Payment successfully created and saved to the database!";
-            return RedirectToAction("Create");
-        }
-        else
-        {
-            ViewBag.Error = "The system could not create the payment.";
-        }*/
