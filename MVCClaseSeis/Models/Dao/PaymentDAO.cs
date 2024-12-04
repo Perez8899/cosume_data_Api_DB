@@ -153,16 +153,5 @@ public class PaymentDAO
     }
 }
 
-//----------------------------------------------------------------------------------------
-/*
- *    public async Task<IEnumerable<PaymentResponseDTO>> GetPaymentsAsync()
-   {
-       var response = await _httpClient.GetAsync("https://saacapps.com/payout/payout.php");
-       if (response.IsSuccessStatusCode)
-       {
-           return await response.Content.ReadFromJsonAsync<IEnumerable<PaymentResponseDTO>>();
-       }
-       return null;
-   }
- */
+
 
