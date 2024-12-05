@@ -122,16 +122,17 @@ public class PaymentDAO
 
         using (var httpClient = new HttpClient())
         {
-            try
+            try 
             {
+
                 // URL de la API con el `contact_id`
-                string apiUrl = $"https://saacapps.com/payout/contact.php?id={contactId}";
+                string apiUrl = $"https://saacapps.com/payout/contact.php?id={contactId}"; 
                 var response = httpClient.GetAsync(apiUrl).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseData = response.Content.ReadAsStringAsync().Result;
-                    Console.WriteLine($"API Response: {responseData}");
+                   
                     var contact = JsonConvert.DeserializeObject<ContactDTO>(responseData);
 
                     if (contact != null)
@@ -146,7 +147,7 @@ public class PaymentDAO
             }
         }
 
-        return firstName ?? "N/A"; // Devuelve "N/A" si no se puede obtener el nombre
+        return firstName ?? "N/A"; // Returns “N/A” if the name cannot be obtained.
     }
 
 
