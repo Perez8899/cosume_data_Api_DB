@@ -1,4 +1,5 @@
 ﻿using MVCClaseSeis.Models;
+using MVCClaseSeis.Models.Dto;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
@@ -73,7 +74,7 @@ public class PaymentDAO
     }
 
  
-    //------------Views Report------------------------------------------------------
+    //------------Views Report---------------------------------------------------------------------
     public List<PaymentResponseDTO> ReadPayments()
     {
         List<PaymentResponseDTO> payments = new List<PaymentResponseDTO>();
@@ -99,6 +100,9 @@ public class PaymentDAO
                             Created_at = reader.GetDateTime("Created_at"),
 
                         };
+                        // Llamar a la API para obtener el `first_name`
+                        payment.first_name = GetContactFirstName(payment.contact_id);
+
                         payments.Add(payment);
                     }
 
@@ -111,6 +115,42 @@ public class PaymentDAO
         }
         return payments;
     }
+    //method to get the name from the contact api----------------------------------------------------------------------
+    private string GetContactFirstName(int contactId)
+    {
+        string firstName = null;
+
+        using (var httpClient = new HttpClient())
+        {
+            try
+            {
+                // URL de la API con el `contact_id`
+                string apiUrl = $"https://saacapps.com/payout/contact.php?id={contactId}";
+                var response = httpClient.GetAsync(apiUrl).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = response.Content.ReadAsStringAsync().Result;
+                    Console.WriteLine($"API Response: {responseData}");
+                    var contact = JsonConvert.DeserializeObject<ContactDTO>(responseData);
+
+                    if (contact != null)
+                    {
+                        firstName = contact.First_Name;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error calling API: " + ex.Message);
+            }
+        }
+
+        return firstName ?? "N/A"; // Devuelve "N/A" si no se puede obtener el nombre
+    }
+
+
+
     //-------------------------------------------------------INSERT DATA IN DB---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public async Task<bool> SavePaymentToDatabaseAsync(int contact_id, decimal amount, string status)
     {
@@ -141,7 +181,7 @@ public class PaymentDAO
                 }
             catch (Exception ex)
             {
-                // MError handling
+                // Error handling
                 Console.WriteLine($"Error saving payment to database: {ex.Message}");
                 return false;
             }
