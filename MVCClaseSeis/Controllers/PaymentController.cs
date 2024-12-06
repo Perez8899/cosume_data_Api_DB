@@ -1,4 +1,7 @@
 ﻿using MVCClaseSeis.Models;
+using Mysqlx.Crud;
+using Mysqlx;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 namespace MVCClaseSeis
@@ -23,16 +26,20 @@ namespace MVCClaseSeis
             return View();
         }
 
+
+        //method of payment
         [HttpPost]
         public async Task<ActionResult> Create(PaymentRequestDTO payment)
         {
+              ModelState["Amount"].Errors.Clear();
             // Checks if the model is valid
             if (ModelState.IsValid)
             {
+            
                 // Check if the amount is valid (positive number)
                 if (payment.Amount <= 0)
                 {
-                    ModelState.AddModelError("Amount", "Amount must be a positive number.");
+                    ModelState.AddModelError("Amount", "The Amount field is not valid, type a positive number and no letters.");
                     return View(payment);
                 }
 

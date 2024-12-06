@@ -45,7 +45,7 @@
     </p>
 </div>
 
-@if (TempData["SuccessMessage"] != null) //TempData es útil para mensajes que sobreviven una redirección (como en RedirectToAction).
+@if (TempData["SuccessMessage"] != null) //alert message
  {
     <div class="alert alert-success">
         @TempData["SuccessMessage"]
@@ -59,7 +59,7 @@
     </div>
 }
 
-@if (ViewBag.Error != null)    // ViewBag es útil para mensajes en la misma solicitud.
+@if (ViewBag.Error != null)    // alert message
 {
     <div class="alert alert-danger">
         @ViewBag.Error

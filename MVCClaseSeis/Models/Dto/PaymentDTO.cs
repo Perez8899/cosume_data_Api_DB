@@ -6,6 +6,8 @@ public class PaymentRequestDTO
     [Required(ErrorMessage = "This field is required for creating a contact.")]
     [EmailAddress]
     public string Email { get; set; } // Contact to whom the payment is made
+
+    [Required(ErrorMessage = "The Amount field is required.")]
     public decimal Amount { get; set; } // Payment amount
 }
 

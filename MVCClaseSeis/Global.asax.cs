@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Builder;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+
 
 namespace MVCClaseSeis
 {
@@ -17,5 +20,7 @@ namespace MVCClaseSeis
             UnityConfig.RegisterComponents();
 
         }
+    
     }
+
 }
